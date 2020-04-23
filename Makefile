@@ -9,17 +9,21 @@
 
 NAME	=	my_rpg
 
-SRC		=	main.c 
+SRC	=	main.c	\
+		src/find.c	\
+		src/main_game.c
 
 OBJ		=	$(SRC:.c=.o)
 
-$(NAME)	:	$(OBJ)
-			gcc $(OBJ) -o $(NAME) -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm -Wall -Wextra
+CFLAGS  =       -I ./include/
 
-clean	:
-			rm -f $(OBJ)
+$(NAME):	$(OBJ)
+	gcc $(OBJ) -o $(NAME) -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm -Wall -Wextra
 
-fclean	:	clean
-			rm -f $(NAME)
+clean:
+	rm -f $(OBJ)
 
-re		:	fclean $(NAME)
+fclean:	clean
+	rm -f $(NAME)
+
+re:	fclean $(NAME)
