@@ -7,12 +7,20 @@
 
 #include "rpg.h"
 
-void event(window_t *w)
+void event(window_t *w, player_t *p)
 {
     while (sfRenderWindow_pollEvent(w->window, &w->event)) {
         if (w->event.type == sfEvtClosed)
             sfRenderWindow_close(w->window);
     }
+    if (sfKeyboard_isKeyPressed(sfKeyLeft))
+        p->pos_x -= 1;
+    if (sfKeyboard_isKeyPressed(sfKeyRight))
+        p->pos_x += 1;
+    if (sfKeyboard_isKeyPressed(sfKeyUp))
+        p->pos_y -= 1;
+    if (sfKeyboard_isKeyPressed(sfKeyDown))
+        p->pos_y += 1;
 }
 
 void destroy_all(window_t *w, background_t *b, player_t *p)
@@ -49,7 +57,7 @@ int main_game()
         return EXIT_FAIL;
     create_tex_sprit(b, p);
     while (sfRenderWindow_isOpen(w->window)) {
-        event(w);
+        event(w, p);
         sfRenderWindow_drawSprite(w->window, b->sprite, NULL);
         sfSprite_setPosition(p->sprite, (sfVector2f){p->pos_x, p->pos_y});
         sfRenderWindow_drawSprite(w->window, p->sprite, NULL);
