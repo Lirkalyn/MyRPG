@@ -32,11 +32,33 @@ void destroy_all(window_t *w, background_t *b, player_t *p)
     sfSprite_destroy(p->sprite);
 }
 
+void limit_of_map(player_t *p, background_t *b)
+{
+    if (p->pos_x > 1450 && b->pos_x > -1300) {
+        p->pos_x = 1450;
+        b->pos_x -= 1;
+    }
+    if (p->pos_x < 0 && b->pos_x < 0) {
+        p->pos_x = 0;
+        b->pos_x += 1;
+    }
+    if (p->pos_x > 1600)
+        p->pos_x = 1600;
+    if (p->pos_x < 0)
+        p->pos_x = 0;
+    if (p->pos_y < 0)
+        p->pos_y = 0;
+    if (p->pos_y > 750)
+        p->pos_y = 750;
+}
+
 void create_tex_sprit(background_t *b, player_t *p)
 {
     b->texture = sfTexture_createFromFile("./pict/1.png", NULL);
     b->sprite = sfSprite_create();
     sfSprite_setTexture(b->sprite, b->texture, sfTrue);
+    b->pos_x = 0;
+    b->pos_y = 0;
     p->texture = sfTexture_createFromFile("./pict/player.png", NULL);
     p->sprite = sfSprite_create();
     sfSprite_setTexture(p->sprite, p->texture, sfTrue);
@@ -58,6 +80,8 @@ int main_game()
     create_tex_sprit(b, p);
     while (sfRenderWindow_isOpen(w->window)) {
         event(w, p);
+        limit_of_map(p, b);
+        sfSprite_setPosition(b->sprite, (sfVector2f){b->pos_x, b->pos_y});
         sfRenderWindow_drawSprite(w->window, b->sprite, NULL);
         sfSprite_setPosition(p->sprite, (sfVector2f){p->pos_x, p->pos_y});
         sfRenderWindow_drawSprite(w->window, p->sprite, NULL);

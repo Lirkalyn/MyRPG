@@ -24,6 +24,8 @@ typedef struct background_s
 {
     sfTexture* texture;
     sfSprite* sprite;
+    int pos_x;
+    int pos_y;
 }background_t;
 
 typedef struct player_s
