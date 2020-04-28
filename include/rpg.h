@@ -26,6 +26,14 @@ typedef struct background_s
     sfSprite* sprite;
 }background_t;
 
+typedef struct player_s
+{
+    sfTexture* texture;
+    sfSprite* sprite;
+    int pos_x;
+    int pos_y;
+}player_t;
+
 int find_the_word(char *str, char *find);
 int main_game();
 
