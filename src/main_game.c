@@ -34,6 +34,7 @@ void destroy_all(window_t *w, background_t *b, player_t *p)
 
 void limit_of_map(player_t *p, background_t *b)
 {
+    //printf("px = %d, py = %d, bx = %d, by = %d\n", p->pos_x, p->pos_y, b->pos_x, b->pos_y);
     if (p->pos_x > 1450 && b->pos_x > -1300) {
         p->pos_x = 1450;
         b->pos_x -= 1;
@@ -52,7 +53,14 @@ void limit_of_map(player_t *p, background_t *b)
         p->pos_y = 750;
 }
 
-void create_tex_sprit(background_t *b, player_t *p)
+void pnj_action(pnj_t *pnj, background_t *b, window_t*w)
+{
+    pnj->pos_x = 1980 + b->pos_x;
+    sfSprite_setPosition(pnj->sprite, (sfVector2f){pnj->pos_x, pnj->pos_y});
+    sfRenderWindow_drawSprite(w->window, pnj->sprite, NULL);
+}
+
+void create_tex_sprit(background_t *b, player_t *p, pnj_t *pnj)
 {
     b->texture = sfTexture_createFromFile("./pict/1.png", NULL);
     b->sprite = sfSprite_create();
@@ -65,6 +73,12 @@ void create_tex_sprit(background_t *b, player_t *p)
     sfSprite_setScale(p->sprite, (sfVector2f){0.15, 0.15});
     p->pos_x = 200;
     p->pos_y = 375;
+    pnj->texture = sfTexture_createFromFile("./pict/pnj.png", NULL);
+    pnj->sprite = sfSprite_create();
+    sfSprite_setTexture(pnj->sprite, pnj->texture, sfTrue);
+    sfSprite_setScale(pnj->sprite, (sfVector2f){0.15, 0.15});
+    pnj->pos_x = 1980;
+    pnj->pos_y = 321;
 }
 
 int main_game()
@@ -72,17 +86,19 @@ int main_game()
     window_t *w = malloc(sizeof(window_t));
     background_t *b = malloc(sizeof(background_t));
     player_t *p = malloc(sizeof(player_t));
+    pnj_t *pnj = malloc(sizeof(pnj_t));
     sfVideoMode mode = {1700, 850, 32};
 
     w->window = sfRenderWindow_create(mode, "RPG", sfResize | sfClose, NULL);
     if (!w->window)
         return EXIT_FAIL;
-    create_tex_sprit(b, p);
+    create_tex_sprit(b, p, pnj);
     while (sfRenderWindow_isOpen(w->window)) {
         event(w, p);
         limit_of_map(p, b);
         sfSprite_setPosition(b->sprite, (sfVector2f){b->pos_x, b->pos_y});
         sfRenderWindow_drawSprite(w->window, b->sprite, NULL);
+        pnj_action(pnj, b, w);
         sfSprite_setPosition(p->sprite, (sfVector2f){p->pos_x, p->pos_y});
         sfRenderWindow_drawSprite(w->window, p->sprite, NULL);
         sfRenderWindow_display(w->window);
