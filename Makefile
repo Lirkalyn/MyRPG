@@ -12,7 +12,11 @@ NAME	=	my_rpg
 SRC	=	main.c	\
 		src/find.c	\
 		src/main_game.c \
-		src/battle.c
+		src/battle/battle.c \
+		src/battle/initialization.c \
+		src/battle/initialization_2.c \
+		src/display.c \
+		src/error_disp.c \
 
 OBJ		=	$(SRC:.c=.o)
 
