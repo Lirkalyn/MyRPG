@@ -11,7 +11,8 @@ NAME	=	my_rpg
 
 SRC	=	main.c	\
 		src/find.c	\
-		src/main_game.c
+		src/main_game.c \
+		src/battle.c
 
 OBJ		=	$(SRC:.c=.o)
 

@@ -47,5 +47,6 @@ typedef struct pnj_s
 
 int find_the_word(char *str, char *find);
 int main_game();
+void start_duel(window_t *w, player_t **p);
 
 #endif /* !MY_H_ */

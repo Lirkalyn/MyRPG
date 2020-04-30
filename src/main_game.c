@@ -21,6 +21,8 @@ void event(window_t *w, player_t *p)
         p->pos_y -= 1;
     if (sfKeyboard_isKeyPressed(sfKeyDown))
         p->pos_y += 1;
+    if (sfKeyboard_isKeyPressed(sfKeyA))
+        start_duel(w, &p);
 }
 
 void destroy_all(window_t *w, background_t *b, player_t *p)
