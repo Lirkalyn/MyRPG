@@ -7,11 +7,52 @@
 
 #include "rpg.h"
 
-static void b_event(window_t *w, player_t *p)
+arrow_t base_moove(int opt, arrow_t arrow, txt_t *base)
+{
+    while (base->previews != NULL)
+        base = base->previews;
+    if (opt == 0) {
+        arrow.opt = ((arrow.opt + 1) >= 7) ? 0 : (arrow.opt + 1);
+        while (base->next != NULL && arrow.opt != base->opt)
+            base = base->next;
+    }
+    else if (opt == 1) {
+        arrow.opt = ((arrow.opt - 1) < 0) ? 6 : (arrow.opt - 1);
+        while (base->next != NULL && arrow.opt != base->opt)
+            base = base->next;
+    }
+    arrow.pos.x = (base->pos.x - 5);
+    arrow.pos.y = (base->pos.y + 25);
+    arrow.id = base->id;
+    arrow.opt = base->opt;
+    sfSprite_setPosition(arrow.sprite, arrow.pos);
+    while (base->previews != NULL)
+        base = base->previews;
+    return arrow;
+}
+
+btl_t *phaser(int opt, btl_t *batl)
+{
+    if (batl->phase == 0)
+        batl->arrow = base_moove(opt, batl->arrow, batl->base);
+//    if (batl->phase == 1)
+//    if (batl->phase == 2)
+    return batl;
+}
+
+static void b_event(window_t *w, player_t *p, btl_t *batl)
 {
     while (sfRenderWindow_pollEvent(w->window, &w->event)) {
         if (w->event.type == sfEvtClosed)
             sfRenderWindow_close(w->window);
+        if (sfKeyboard_isKeyPressed(sfKeyUp))
+            batl = phaser(1, batl);
+        if (sfKeyboard_isKeyPressed(sfKeyLeft))
+            batl = phaser(1, batl);
+        if (sfKeyboard_isKeyPressed(sfKeyRight))
+            batl = phaser(0, batl);
+        if (sfKeyboard_isKeyPressed(sfKeyDown))
+            batl = phaser(0, batl);
     }
 }
 
@@ -27,6 +68,7 @@ void draw(btl_t *batl)
         sfRenderWindow_drawText(batl->w->window, batl->base->text, NULL);
         batl->base = batl->base->next;
     }
+    sfRenderWindow_drawSprite(batl->w->window, batl->arrow.sprite, NULL);
     sfRenderWindow_display(batl->w->window);
 }
 
@@ -41,6 +83,6 @@ int start_duel(window_t *w, player_t **p)
         draw(batl);
         while (batl->base->previews != NULL)
             batl->base = batl->base->previews;
-        b_event(batl->w, batl->p[0]);
+        b_event(batl->w, batl->p[0], batl);
     }
 }

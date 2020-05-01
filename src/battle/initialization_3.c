@@ -69,3 +69,18 @@ char *menu_txt(int id, int pos)
     else
         return po_error_disp(3);
 }
+
+btl_t *b_arrow_init(btl_t *batl)
+{
+    batl->arrow.texture = sfTexture_createFromFile("./pict/arrow.png", NULL); // 90 * 90
+    batl->arrow.sprite = sfSprite_create();
+    sfSprite_setTexture(batl->arrow.sprite, batl->arrow.texture, sfTrue);
+    batl->arrow.pos.x = (batl->base->pos.x - 5);
+    batl->arrow.pos.y = (batl->base->pos.y + 25);
+    batl->arrow.id = batl->base->id;
+    batl->arrow.opt = batl->base->opt;
+    sfSprite_setPosition(batl->arrow.sprite, batl->arrow.pos);
+    sfSprite_setScale(batl->arrow.sprite, (sfVector2f){0.5, 0.5});
+    sfSprite_rotate(batl->arrow.sprite, 135.0);
+    return batl;
+}

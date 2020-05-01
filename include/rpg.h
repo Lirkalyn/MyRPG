@@ -98,14 +98,25 @@ typedef struct txt_s
 {
     sfText *text;
     sfVector2f pos;
-    int opt;
     int id;
+    int opt;
     struct txt_s *next;
     struct txt_s *previews;
 } txt_t;
 
+typedef struct arrow_s
+{
+    sfTexture *texture;
+    sfSprite *sprite;
+    sfVector2f pos;
+    int id;
+    int opt;
+//    sfIntRect rect;
+} arrow_t;
+
 typedef struct btl_s
 {
+    int phase;
     window_t *w;
     player_t **p;
     background_t bck;
@@ -116,6 +127,7 @@ typedef struct btl_s
     b_enem_t *b_ene;
     txt_t *base;
     txt_t *comp;
+    arrow_t arrow;
 } btl_t;
 
 int find_the_word(char *str, char *find);
@@ -135,5 +147,6 @@ char *b_copy(char *str);
 btl_t *b_base_txt_init(btl_t *batl, int id);
 btl_t *b_base_txt_init_2(btl_t *batl);
 char *menu_txt(int id, int pos);
+btl_t *b_arrow_init(btl_t *batl);
 
 #endif

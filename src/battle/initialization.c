@@ -50,6 +50,7 @@ btl_t *batl_init(window_t *w, player_t **p)
 
     if (batl == NULL)
         return NULL;
+    batl->phase = 0;
     batl->p = p;
     batl->w = w;
     batl->bck.texture = sfTexture_createFromFile("./pict/batl_bck2.jpg", NULL);
@@ -60,5 +61,6 @@ btl_t *batl_init(window_t *w, player_t **p)
     batl = b_ui_init(batl);
     batl = b_player_init(batl, 1);
     batl = b_base_txt_init(batl, 0);
+    batl = b_arrow_init(batl);
     return batl;
 }
