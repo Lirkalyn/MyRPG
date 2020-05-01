@@ -59,5 +59,6 @@ btl_t *batl_init(window_t *w, player_t **p)
     batl = sta_init(batl);
     batl = b_ui_init(batl);
     batl = b_player_init(batl, 1);
+    batl = b_base_txt_init(batl, 0);
     return batl;
 }

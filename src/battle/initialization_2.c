@@ -78,3 +78,26 @@ btl_t *b_enem_init(btl_t *batl, int nb)
     }
     return batl;
 }
+
+btl_t *b_base_txt_init(btl_t *batl, int id)
+{
+    int i = 0;
+    int x = 175;
+    int y = 590;
+    void *tmp = NULL;
+
+    batl->base = txt_mallocer();
+    for (; i < 8; i++) {
+        batl->base->id = id;
+        batl->base->opt = i;
+        batl->base->pos = (sfVector2f){x , (y + (35 * i))};
+        sfText_setString(batl->base->text, menu_txt(id, i));
+        tmp = batl->base;
+        batl->base->next = txt_mallocer();
+        if (batl->base->next == NULL)
+            return po_error_disp(2);
+        batl->base = batl->base->next;
+        batl->base->previews = tmp;
+    }
+    return b_base_txt_init_2(batl);
+}

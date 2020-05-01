@@ -94,6 +94,16 @@ typedef struct b_enem_s
     int atq;
 } b_enem_t;
 
+typedef struct txt_s
+{
+    sfText *text;
+    sfVector2f pos;
+    int opt;
+    int id;
+    struct txt_s *next;
+    struct txt_s *previews;
+} txt_t;
+
 typedef struct btl_s
 {
     window_t *w;
@@ -104,6 +114,8 @@ typedef struct btl_s
     ui_t b_ui;
     b_player_t *b_pla;
     b_enem_t *b_ene;
+    txt_t *base;
+    txt_t *comp;
 } btl_t;
 
 int find_the_word(char *str, char *find);
@@ -118,5 +130,10 @@ sfIntRect set_rect(int *info, sfIntRect rect);
 btl_t *b_ui_init(btl_t *batl);
 btl_t *b_player_init(btl_t *batl , int nb);
 btl_t *b_enem_init(btl_t *batl, int nb);
+txt_t *txt_mallocer(void);
+char *b_copy(char *str);
+btl_t *b_base_txt_init(btl_t *batl, int id);
+btl_t *b_base_txt_init_2(btl_t *batl);
+char *menu_txt(int id, int pos);
 
 #endif

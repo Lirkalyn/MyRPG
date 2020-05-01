@@ -15,6 +15,7 @@ SRC	=	main.c	\
 		src/battle/battle.c \
 		src/battle/initialization.c \
 		src/battle/initialization_2.c \
+		src/battle/initialization_3.c \
 		src/display.c \
 		src/error_disp.c \
 

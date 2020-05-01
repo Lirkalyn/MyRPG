@@ -23,6 +23,10 @@ void draw(btl_t *batl)
     sfRenderWindow_drawSprite(batl->w->window, batl->hp.sprite, NULL);
     sfRenderWindow_drawSprite(batl->w->window, batl->sta.sprite, NULL);
     sfRenderWindow_drawSprite(batl->w->window, batl->b_pla[0].sprite, NULL);
+    while (batl->base->next != NULL) {
+        sfRenderWindow_drawText(batl->w->window, batl->base->text, NULL);
+        batl->base = batl->base->next;
+    }
     sfRenderWindow_display(batl->w->window);
 }
 
@@ -35,6 +39,8 @@ int start_duel(window_t *w, player_t **p)
         return in_error_disp(0, 85);
     while (sfRenderWindow_isOpen(batl->w->window) && over == 0) {
         draw(batl);
+        while (batl->base->previews != NULL)
+            batl->base = batl->base->previews;
         b_event(batl->w, batl->p[0]);
     }
 }
