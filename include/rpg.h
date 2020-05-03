@@ -81,11 +81,13 @@ typedef struct b_player_s
     int atq;
     int exp;
     int lv;
+    int sta;
 } b_player_t;
 
 typedef struct b_enem_s
 {
     int nb;
+    int id;
     sfTexture* texture;
     sfSprite* sprite;
     sfVector2f pos;
@@ -148,5 +150,10 @@ btl_t *b_base_txt_init(btl_t *batl, int id);
 btl_t *b_base_txt_init_2(btl_t *batl);
 char *menu_txt(int id, int pos);
 btl_t *b_arrow_init(btl_t *batl);
+btl_t *b_enem_init(btl_t *batl , int nb);
+btl_t *b_comp_txt_init(btl_t *batl, int id);
+btl_t *b_comp_txt_init_2(btl_t *batl);
+void which_menu(btl_t *batl);
+void menu_1(btl_t *batl);
 
 #endif

@@ -17,7 +17,7 @@ btl_t *b_ui_init(btl_t *batl)
     return batl;
 }
 
-int *rect(int pos, int *re)
+static int *rect(int pos, int *re)
 {
     if (pos == 0) {
         re[0] = 44;
@@ -49,32 +49,11 @@ btl_t *b_player_init(btl_t *batl , int nb)
         batl->b_pla[i].exp = 0;
         batl->b_pla[i].lv = 1;
         batl->b_pla[i].pv = 20;
+        batl->b_pla[i].sta = 10;
 //-
         batl->b_pla[i].rect = set_rect(rect(i, re), batl->b_pla[i].rect);
         sfSprite_setTextureRect(batl->b_pla[i].sprite, batl->b_pla[i].rect);
         sfSprite_setScale(batl->b_pla[i].sprite, (sfVector2f){2.5, 2.5});
-    }
-    return batl;
-}
-
-btl_t *b_enem_init(btl_t *batl, int nb)
-{
-    int i = 0;
-    sfTexture* tmp;
-
-    batl->b_ene = malloc(nb * sizeof(b_enem_t));
-    for (; i < nb; i++) {
-        batl->b_ene[i].nb = nb;
-        tmp = sfTexture_createFromFile("./pict/P1.png", NULL); // ???
-        batl->b_ene[i].texture = tmp;
-        batl->b_ene[i].sprite = sfSprite_create();
-        sfSprite_setTexture(batl->b_ene[i].sprite, tmp, sfTrue);
-        batl->b_ene[i].pos = posing(160, 600, batl->b_ene[i].pos);
-        sfSprite_setPosition(batl->b_ene[i].sprite, batl->b_ene[i].pos);
-        batl->b_ene[i].atq = 1;
-        batl->b_ene[i].pv = 15; // entre 15 et 20.
-//        batl->b_pla[i].rect
-        sfTexture_destroy(tmp);
     }
     return batl;
 }
@@ -100,4 +79,27 @@ btl_t *b_base_txt_init(btl_t *batl, int id)
         batl->base->previews = tmp;
     }
     return b_base_txt_init_2(batl);
+}
+
+btl_t *b_comp_txt_init(btl_t *batl, int id)
+{
+    int i = 0;
+    int x = 175;
+    int y = 590;
+    void *tmp = NULL;
+
+    batl->comp = txt_mallocer();
+    for (; i < 6; i++) {
+        batl->comp->id = id;
+        batl->comp->opt = i;
+        batl->comp->pos = (sfVector2f){x , (y + (50 * i))}; // 35
+        sfText_setString(batl->comp->text, menu_txt(id, i));
+        tmp = batl->comp;
+        batl->comp->next = txt_mallocer();
+        if (batl->comp->next == NULL)
+            return po_error_disp(2);
+        batl->comp = batl->comp->next;
+        batl->comp->previews = tmp;
+    }
+    return b_comp_txt_init_2(batl);
 }

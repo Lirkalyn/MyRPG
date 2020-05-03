@@ -60,11 +60,12 @@ char *menu_txt(int id, int pos)
     char *tmp = NULL;
     char base[8][8] = {"Attack\0", "Defense\0", "Skill\0", "Bravely\0",
                         "Default\0", "Inspect\0", "Run\0", 0};
-    char comp[5][8] = {"Attack\0", "Defense\0", "Skill\0", "Bravely\0", 0};
+    char comp[6][10] = {"Punch\0", "Axe swing\0", "Slash\0", "Tornado\0",
+                        "<-- Back\0", 0};
 
     if (id == 0 && pos < 8)
         return b_copy(base[pos]);
-    else if (id == 1 && pos < 5)
+    else if (id == 1 && pos < 6)
         return b_copy(comp[pos]);
     else
         return po_error_disp(3);
