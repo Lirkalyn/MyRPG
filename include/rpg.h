@@ -113,7 +113,6 @@ typedef struct arrow_s
     sfVector2f pos;
     int id;
     int opt;
-//    sfIntRect rect;
 } arrow_t;
 
 typedef struct btl_s
@@ -155,5 +154,8 @@ btl_t *b_comp_txt_init(btl_t *batl, int id);
 btl_t *b_comp_txt_init_2(btl_t *batl);
 void which_menu(btl_t *batl);
 void menu_1(btl_t *batl);
+
+btl_t *hp_init(btl_t *batl);
+btl_t *sta_init(btl_t *batl);
 
 #endif

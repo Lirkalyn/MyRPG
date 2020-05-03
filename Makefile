@@ -15,8 +15,11 @@ SRC	=	main.c	\
 		src/battle/battle.c \
 		src/battle/initialization.c \
 		src/battle/initialization_2.c \
-		src/battle/initialization_3.c \
-		src/battle/initialization_4.c \
+		src/battle/gauge_initialization.c \
+		src/battle/txt_initialization.c \
+		src/battle/txt_initialization_2.c \
+		src/battle/player_initialization.c \
+		src/battle/enem_initialization.c \
 		src/display.c \
 		src/error_disp.c \
 		src/battle/action.c \

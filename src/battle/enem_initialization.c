@@ -44,21 +44,3 @@ btl_t *b_enem_init(btl_t *batl , int nb)
     }
     return batl;
 }
-
-btl_t *b_comp_txt_init_2(btl_t *batl)
-{
-    sfFont *test = sfFont_createFromFile("rsc/Calibri Regular.ttf");
-
-    while (batl->comp->previews != NULL)
-        batl->comp = batl->comp->previews;
-    while (batl->comp->next != NULL) {
-        sfText_setFont(batl->comp->text, test);
-        sfText_setCharacterSize(batl->comp->text, 55);
-        sfText_setColor(batl->comp->text, sfBlack);
-        sfText_setPosition(batl->comp->text, batl->comp->pos);
-        batl->comp = batl->comp->next;
-    }
-    while (batl->comp->previews != NULL)
-        batl->comp = batl->comp->previews;
-    return batl;
-}
