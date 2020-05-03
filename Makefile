@@ -23,6 +23,7 @@ SRC	=	main.c	\
 		src/display.c \
 		src/error_disp.c \
 		src/battle/action.c \
+		src/battle/menu_txt.c \
 
 OBJ		=	$(SRC:.c=.o)
 

@@ -17,30 +17,30 @@
 
 typedef struct window_s
 {
-    sfRenderWindow* window;
+    sfRenderWindow *window;
     sfEvent event;
 }window_t;
 
 typedef struct background_s
 {
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     int pos_x;
     int pos_y;
 }background_t;
 
 typedef struct player_s
 {
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     int pos_x;
     int pos_y;
 }player_t;
 
 typedef struct pnj_s
 {
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     int pos_x;
     int pos_y;
     int num_dialogue;
@@ -48,24 +48,24 @@ typedef struct pnj_s
 
 typedef struct health_s
 {
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
 } health_t;
 
 typedef struct mn_sta_s
 {
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
 } mn_sta_t;
 
 typedef struct ui_s
 {
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
 } ui_t;
@@ -73,8 +73,8 @@ typedef struct ui_s
 typedef struct b_player_s
 {
     int nb;
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
     int pv;
@@ -88,8 +88,8 @@ typedef struct b_enem_s
 {
     int nb;
     int id;
-    sfTexture* texture;
-    sfSprite* sprite;
+    sfTexture *texture;
+    sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
     int pv;
@@ -142,20 +142,15 @@ sfVector2f posing(int x, int y, sfVector2f pos);
 sfIntRect set_rect(int *info, sfIntRect rect);
 btl_t *b_ui_init(btl_t *batl);
 btl_t *b_player_init(btl_t *batl , int nb);
-btl_t *b_enem_init(btl_t *batl, int nb);
-txt_t *txt_mallocer(void);
-char *b_copy(char *str);
 btl_t *b_base_txt_init(btl_t *batl, int id);
-btl_t *b_base_txt_init_2(btl_t *batl);
 char *menu_txt(int id, int pos);
 btl_t *b_arrow_init(btl_t *batl);
 btl_t *b_enem_init(btl_t *batl , int nb);
 btl_t *b_comp_txt_init(btl_t *batl, int id);
-btl_t *b_comp_txt_init_2(btl_t *batl);
 void which_menu(btl_t *batl);
 void menu_1(btl_t *batl);
-
 btl_t *hp_init(btl_t *batl);
 btl_t *sta_init(btl_t *batl);
+txt_t *rewinder(txt_t *menu);
 
 #endif

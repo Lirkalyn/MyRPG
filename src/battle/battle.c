@@ -9,8 +9,7 @@
 
 arrow_t base_moove(int opt, arrow_t arrow, txt_t *base)
 {
-    while (base->previews != NULL)
-        base = base->previews;
+    base = rewinder(base);
     if (opt == 0) {
         arrow.opt = ((arrow.opt + 1) >= 7) ? 0 : (arrow.opt + 1);
         while (base->next != NULL && arrow.opt != base->opt)
@@ -26,8 +25,7 @@ arrow_t base_moove(int opt, arrow_t arrow, txt_t *base)
     arrow.id = base->id;
     arrow.opt = base->opt;
     sfSprite_setPosition(arrow.sprite, arrow.pos);
-    while (base->previews != NULL)
-        base = base->previews;
+    base = rewinder(base);
     return arrow;
 }
 
@@ -58,8 +56,8 @@ static void b_event(window_t *w, player_t *p, btl_t *batl)
                 batl = phaser(0, batl);
             if (sfKeyboard_isKeyPressed(sfKeySpace))
                 which_menu(batl);
-            if (sfKeyboard_isKeyPressed(sfKeyBack))
-                printf("back\n");
+//            if (sfKeyboard_isKeyPressed(sfKeyBack))
+//                printf("back\n");
         }
     }
 }
@@ -101,12 +99,8 @@ int start_duel(window_t *w, player_t **p)
     while (sfRenderWindow_isOpen(batl->w->window) && over == 0) {
         sfRenderWindow_setKeyRepeatEnabled(batl->w->window, sfFalse);
         draw(batl);
-        while (batl->base->previews != NULL)
-            batl->base = batl->base->previews;
-
-//        while (batl->comp->previews != NULL)
-//            batl->comp = batl->comp->previews;
-
+        batl->base = rewinder(batl->base);
+//        batl->comp = rewinder(batl->comp);
         b_event(batl->w, batl->p[0], batl);
     }
 }
