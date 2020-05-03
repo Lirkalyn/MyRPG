@@ -26,6 +26,7 @@ btl_t *b_arrow_init(btl_t *batl)
     batl->arrow.pos.y = (batl->base->pos.y + 25);
     batl->arrow.id = batl->base->id;
     batl->arrow.opt = batl->base->opt;
+    batl->arrow.target = 0;
     sfSprite_setPosition(batl->arrow.sprite, batl->arrow.pos);
     sfSprite_setScale(batl->arrow.sprite, (sfVector2f){0.5, 0.5});
     sfSprite_rotate(batl->arrow.sprite, 135.0);

@@ -25,7 +25,7 @@ btl_t *b_player_value_init(btl_t *batl, int i)
     batl->b_pla[i].exp = 0;
     batl->b_pla[i].lv = 1;
     batl->b_pla[i].pv = 20;
-    batl->b_pla[i].sta = 10;
+    batl->b_pla[i].sta = 3;
     return batl;
 }
 

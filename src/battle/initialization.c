@@ -25,12 +25,16 @@ sfIntRect set_rect(int *info, sfIntRect rect)
 
 btl_t *f_init(window_t *w, player_t **p, btl_t *batl)
 {
+    batl->over = 0;
     batl->phase = 0;
+    batl->def = 0;
+    batl->bravely = 0;
     batl->p = p;
     batl->w = w;
     batl->bck.texture = sfTexture_createFromFile("./pict/batl_bck2.jpg", NULL);
     batl->bck.sprite = sfSprite_create();
     sfSprite_setTexture(batl->bck.sprite, batl->bck.texture, sfTrue);
+    batl->actions = NULL;
     return batl;
 }
 

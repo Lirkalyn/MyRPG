@@ -113,11 +113,24 @@ typedef struct arrow_s
     sfVector2f pos;
     int id;
     int opt;
+    int target;
 } arrow_t;
+
+typedef struct choice_s
+{
+    int id;
+    int opt;
+    int target;
+    struct choice_s *next;
+    struct choice_s *previews;
+} choice_t;
 
 typedef struct btl_s
 {
     int phase;
+    int def;
+    int bravely;
+    int over;
     window_t *w;
     player_t **p;
     background_t bck;
@@ -129,6 +142,7 @@ typedef struct btl_s
     txt_t *base;
     txt_t *comp;
     arrow_t arrow;
+    choice_t *actions;
 } btl_t;
 
 int find_the_word(char *str, char *find);
@@ -152,5 +166,9 @@ void menu_1(btl_t *batl);
 btl_t *hp_init(btl_t *batl);
 btl_t *sta_init(btl_t *batl);
 txt_t *rewinder(txt_t *menu);
+void disp_which_menu(btl_t *batl);
+arrow_t base_move(int opt, arrow_t arrow, txt_t *base);
+arrow_t comp_move(int opt, arrow_t arrow, txt_t *comp);
+arrow_t enem_move(int opt, arrow_t arrow, b_enem_t *wolf);
 
 #endif
